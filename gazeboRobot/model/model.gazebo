@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<robot>
+
+<gazebo reference ="body_link">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Red</material>
+</gazebo>
+
+<gazebo reference ="wheel_right">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Yellow</material>
+</gazebo>
+
+<gazebo reference ="wheel_left">
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+    <material>Gazebo/Yellow</material>
+</gazebo>
+
+<gazebo reference ="caster">
+    <mu1>0.000002</mu1>
+    <mu2>0.200002</mu2>
+    <material>Gazebo/Blue</material>
+</gazebo>
+
+<gazebo>
+<plugin filename="gz-sim-diff-drive-system" name="gz::sim::systwm::DiffDrive">
+    <right_joint>wheel_right_joint</right_joint>
+    <left_joint>wheel_left_joint</left_joint>
+    <wheel_separation>${2*s4}</wheel_separation>
+    <wheel_diameter>${r}</wheel_diameter>
+    <max_linear_acceleration>10</max_linear_acceleration>
+
+    <topic>cmd_vel</topic>
+    <tf_topic>/tf</tf_topic>
+    <odom_topic>odom</odom_topic>
+    <frame_id>odom</frame_id>
+    <child_frame_id>base_footprint</child_frame_id>
+    <odom_publisher_frequency>30</odom_publisher_frequency>
+
+</plugin>
+
+<plugin filename= "gz-sim-joint_state_publisher-system" name="gz::sim::system::JointStatePublisher">
+    <topic>joint_states</topic>
+    <joint_name>wheel_right_joint</joint_name>
+    <joint_name>wheel_left_joint</joint_name>
+</plugin>
+</gazebo>
+</robot>
+
